@@ -1,0 +1,114 @@
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 420px;
+  margin-inline: auto;
+  padding: var(--space-6) var(--space-2);
+  text-align: center;
+}
+
+.compact {
+  padding-block: var(--space-4);
+}
+
+.art {
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--space-1);
+  color: var(--color-ink-3);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-paper-sunken);
+  color: var(--color-ink-2);
+}
+
+.icon > svg {
+  width: 24px;
+  height: 24px;
+}
+
+.title {
+  font-size: var(--text-xl);
+}
+
+.body {
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-ink-2);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+/* ---- Illustrations: line drawings in ink with one red pen accent ---- */
+
+.illustration {
+  display: block;
+  width: 136px;
+  height: 104px;
+  overflow: visible;
+}
+
+.paper {
+  fill: var(--color-paper-raised);
+  stroke: var(--color-control-border);
+  stroke-width: 1.25;
+}
+
+.paperBack {
+  fill: var(--color-paper-sunken);
+  stroke: var(--color-control-border);
+  stroke-width: 1.25;
+}
+
+.rule {
+  stroke: var(--color-rule-strong);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+}
+
+.margin {
+  stroke: var(--color-margin-line);
+  stroke-width: 1.25;
+}
+
+.line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Words of handwriting on a sheet. */
+.writing {
+  stroke: var(--color-ink-3);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+
+.artFrame {
+  position: relative;
+  display: block;
+}
+
+/* Pen marks laid over the drawing, positioned in its 136 x 104 coordinates. */
+.accent {
+  position: absolute;
+  display: block;
+  line-height: 0;
+}

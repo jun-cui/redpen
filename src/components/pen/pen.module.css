@@ -1,0 +1,88 @@
+.mark {
+  display: inline-block;
+  flex-shrink: 0;
+  overflow: visible;
+  color: var(--color-red);
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+/* Fills the nearest positioned ancestor (strikes and underlines laid over text). */
+.fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+}
+
+.fill > .mark {
+  position: absolute;
+  inset: 0;
+}
+
+/* Underlines hang just below the text box. */
+.underlineFill {
+  position: absolute;
+  inset: auto 0 calc(-0.45em) 0;
+  height: 0.7em;
+  display: block;
+  pointer-events: none;
+}
+
+.underlineFill > .mark {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---- Handwriting ---- */
+
+.note {
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  color: var(--color-red);
+}
+
+.word {
+  display: inline-block;
+}
+
+/* ---- Circled score ---- */
+
+.circle {
+  position: relative;
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  color: var(--color-red);
+}
+
+.circle > .mark {
+  position: absolute;
+  inset: 0;
+}
+
+.scoreText {
+  position: relative;
+  display: block;
+  font-family: var(--font-hand);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: lining-nums;
+  /* Caveat's figures sit high; nudge them to the optical centre of the ring. */
+  translate: 0 0.04em;
+}
+
+.sm .scoreText {
+  font-size: var(--text-lg);
+}
+
+.md .scoreText {
+  font-size: var(--text-2xl);
+}
+
+.lg .scoreText {
+  font-size: var(--text-4xl);
+}

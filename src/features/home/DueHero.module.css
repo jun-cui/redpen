@@ -1,0 +1,125 @@
+/* The home page's main sheet: an exam answer sheet with its red margin rule.
+ * Its layout follows the sheet's own width (a container), not the window's: on a desktop the
+ * sheet shares the row with the side column, so a wide window can still mean a narrow sheet. */
+.hero {
+  container: home-hero / inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  line-height: var(--leading-normal);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* The count is the headline of the page, so it is set larger than Stat's own lg size.
+   (Stat renders label, value, hint: the value is its second child.) */
+.hero .stat > :nth-child(2) {
+  font-size: calc(var(--text-4xl) + var(--space-2));
+}
+
+.start {
+  width: 100%;
+}
+
+/* Room for the count and the button side by side. */
+@container home-hero (min-width: 440px) {
+  .body {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .start {
+    width: auto;
+  }
+}
+
+@container home-hero (min-width: 520px) {
+  .hero .stat > :nth-child(2) {
+    font-size: calc(var(--text-4xl) + var(--space-5));
+  }
+}
+
+/* Two-column desktop layout: a taller sheet, so the count has paper around it. */
+@container home-board (min-width: 820px) {
+  .hero {
+    min-height: calc(var(--space-10) * 3.5);
+  }
+}
+
+/* ---- All caught up ---- */
+
+/* With no button to anchor the bottom, the message sits in the middle of the sheet. */
+.caughtUp {
+  justify-content: flex-start;
+}
+
+.caughtUp .caughtText {
+  margin-block: auto;
+}
+
+.caughtText {
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  max-width: 36ch;
+}
+
+@container home-hero (min-width: 440px) {
+  .caughtText {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+/* The tick sits centred in the margin column, level with the heading, as an examiner would put it.
+   The text block starts var(--space-2) after the margin rule, so step back over both. */
+.marginMark {
+  position: absolute;
+  top: 0;
+  left: calc((var(--sheet-margin) + var(--space-4)) / -2 - var(--space-2));
+  display: block;
+  line-height: 0;
+}
+
+.caughtTitle {
+  font-size: var(--text-2xl);
+  font-variation-settings: 'opsz' 72;
+}
+
+.caughtBody {
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-ink-2);
+}
+
+.caughtHint {
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+@container home-hero (min-width: 440px) {
+  .caughtTitle {
+    font-size: var(--text-3xl);
+  }
+
+  .marginMark {
+    top: var(--space-half);
+  }
+}

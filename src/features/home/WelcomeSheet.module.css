@@ -1,0 +1,127 @@
+.welcome {
+  container: home-welcome / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: calc(var(--content-max) + var(--space-10) * 2);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.mark {
+  margin-bottom: var(--space-1);
+  margin-left: calc(var(--space-half) * -1);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-variation-settings: 'opsz' 72;
+}
+
+.lead {
+  max-width: 44ch;
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-2);
+}
+
+/* ---- Steps: numbered like questions on a paper ---- */
+
+.steps {
+  display: grid;
+  gap: 0;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: var(--space-5) minmax(0, 1fr);
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--color-rule);
+}
+
+.number {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-regular);
+  font-variant-numeric: lining-nums;
+  font-variation-settings: 'opsz' 96;
+  line-height: 1;
+  color: var(--color-ink-3);
+}
+
+.stepText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  padding-top: var(--space-half);
+}
+
+.stepTitle {
+  font-size: var(--text-lg);
+  font-variation-settings: 'opsz' 36;
+}
+
+.stepBody {
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-ink-2);
+}
+
+/* ---- Actions ---- */
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.action {
+  width: 100%;
+}
+
+.note {
+  margin-top: calc(var(--space-2) * -1);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+@media (min-width: 600px) {
+  .title {
+    font-size: var(--text-3xl);
+  }
+
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .action {
+    width: auto;
+  }
+}
+
+/* A wide sheet: the three steps side by side, like columns of a printed page. (The sheet's own
+   width decides, since the desktop sidebar takes some of the window.) */
+@container home-welcome (min-width: 640px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: var(--space-1);
+    padding-block: var(--space-3) 0;
+  }
+
+  .stepText {
+    padding-top: 0;
+  }
+}

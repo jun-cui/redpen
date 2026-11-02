@@ -1,0 +1,134 @@
+/*
+ * A sheet of good paper: a warm, slightly brighter surface than the desk, crisp 6px corners,
+ * a hairline edge, layered soft shadows and a faint grain.
+ */
+.sheet {
+  --sheet-pad-x: var(--space-3);
+  --sheet-pad-y: var(--space-3);
+  --sheet-rule-shift: -5px;
+
+  position: relative;
+  display: block;
+  padding: var(--sheet-pad-y) var(--sheet-pad-x);
+  border-radius: var(--radius-sheet);
+  background-color: var(--color-paper-raised);
+  background-image: var(--texture-grain);
+  box-shadow: var(--sheet-edge), var(--shadow-sheet);
+  color: var(--color-ink);
+}
+
+/* ---- Elevation ---- */
+
+.flat {
+  box-shadow: var(--sheet-edge), var(--shadow-xs);
+}
+
+.lifted {
+  box-shadow: var(--sheet-edge), var(--shadow-lifted);
+}
+
+/* ---- Padding ---- */
+
+.pad-none {
+  --sheet-pad-x: 0px;
+  --sheet-pad-y: 0px;
+}
+
+.pad-sm {
+  --sheet-pad-x: var(--space-2);
+  --sheet-pad-y: var(--space-2);
+}
+
+.pad-lg {
+  --sheet-pad-x: var(--space-3);
+  --sheet-pad-y: var(--space-4);
+}
+
+@media (min-width: 600px) {
+  .pad-md {
+    --sheet-pad-x: var(--space-4);
+    --sheet-pad-y: var(--space-4);
+  }
+
+  .pad-lg {
+    --sheet-pad-x: var(--space-6);
+    --sheet-pad-y: var(--space-6);
+  }
+}
+
+/* ---- Ruled paper ----
+ * One hairline every --sheet-line, positioned from the content box so text set with
+ * line-height: var(--sheet-line) sits just above each line, as on lined paper.
+ * --sheet-rule-shift fine-tunes the baseline gap for other text sizes. */
+
+.ruled {
+  line-height: var(--sheet-line);
+  background-image:
+    var(--texture-grain),
+    linear-gradient(to bottom, transparent calc(var(--sheet-line) - 1px), var(--color-rule-strong) 0);
+  background-size:
+    auto,
+    100% var(--sheet-line);
+  background-position:
+    0 0,
+    0 calc(var(--sheet-pad-y) + var(--sheet-rule-shift));
+  background-repeat: repeat, repeat-y;
+}
+
+/* ---- Margin rule ----
+ * The red rule of an exam answer sheet. The margin column (--sheet-margin wide) is free for
+ * ticks and the circled score; content starts after it. */
+
+.margin {
+  padding-left: calc(var(--sheet-margin) + var(--space-2));
+}
+
+.margin::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--sheet-margin);
+  width: 1px;
+  background-color: var(--color-margin-line);
+  pointer-events: none;
+}
+
+/* ---- Interactive (a whole sheet that is a link or button) ----
+ * The hover lift fades in the larger shadow on its own layer, so only opacity animates. */
+
+.interactive {
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--duration-spring) var(--ease-spring);
+}
+
+.interactive::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--shadow-lifted);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .interactive:hover {
+    transform: translateY(-1px);
+  }
+
+  .interactive:hover::after {
+    opacity: 1;
+  }
+}
+
+.interactive:active {
+  transform: scale(0.99);
+  transition-duration: var(--duration-instant);
+}
+
+.interactive:focus-visible {
+  box-shadow: var(--focus-ring), var(--shadow-sheet);
+}

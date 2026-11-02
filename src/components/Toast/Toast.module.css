@@ -1,0 +1,94 @@
+/*
+ * Phones: centred above the tab bar and the home indicator. The shell can move toasts by setting
+ * --toast-bottom (e.g. to var(--safe-bottom) on screens without the tab bar).
+ * Desktop: bottom-right corner.
+ * Either way they ride above the on-screen keyboard, which covers the bottom of the layout
+ * viewport on iOS (the tab bar hides while it is open, so the larger of the two offsets is right).
+ */
+.viewport {
+  position: fixed;
+  right: 0;
+  bottom: max(
+    var(--toast-bottom, calc(var(--tabbar-height) + var(--safe-bottom))),
+    calc(var(--keyboard-inset) + var(--space-1))
+  );
+  left: 0;
+  z-index: var(--z-toast);
+  padding: var(--space-1) max(var(--page-gutter), var(--safe-right)) var(--space-1) max(var(--page-gutter), var(--safe-left));
+  pointer-events: none;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  width: 100%;
+  max-width: 440px;
+  min-height: var(--control-height);
+  padding: var(--space-half) var(--space-half) var(--space-half) var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-paper-raised);
+  box-shadow: var(--sheet-edge), var(--shadow-lifted);
+  color: var(--color-ink);
+  pointer-events: auto;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-red);
+}
+
+.message {
+  flex: 1;
+  min-width: 0;
+  padding-block: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+.action {
+  flex-shrink: 0;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .action:hover {
+    background-color: var(--color-ink-wash);
+  }
+}
+
+.action:active {
+  background-color: var(--color-ink-wash-strong);
+}
+
+@media (min-width: 1024px) {
+  .viewport {
+    right: var(--space-4);
+    bottom: max(var(--space-4), calc(var(--keyboard-inset) + var(--space-1)));
+    left: auto;
+    width: 400px;
+    padding: 0;
+  }
+
+  .list {
+    align-items: stretch;
+  }
+}

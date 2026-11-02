@@ -1,0 +1,37 @@
+/* Focus mode: no navigation around the page. The card and the summary own their bottom space
+   (the card docks its actions to the bottom of the screen on phones). */
+.page {
+  padding-bottom: 0;
+}
+
+/* While the offline strip is showing, it already covers the status-bar area. */
+.page[data-offline] {
+  --safe-top: 0px;
+}
+
+/* A laptop screen is short: the top bar sits close to the top, so the answer and its Mark
+   button fit above the fold. */
+@media (min-width: 1024px) {
+  .page {
+    padding-top: calc(var(--safe-top) + var(--space-3));
+  }
+}
+
+/* The card on screen and the one leaving share this box; on desktop the leaving one is popped
+   out of the flow (AnimatePresence popLayout) and positioned against it. */
+.stage {
+  position: relative;
+}
+
+.view {
+  width: 100%;
+}
+
+/* The card on its way out is drawn over the new one until it has gone: let taps through. */
+.view[data-motion-pop-id] {
+  pointer-events: none;
+}
+
+.state {
+  padding-bottom: calc(var(--space-8) + var(--safe-bottom));
+}

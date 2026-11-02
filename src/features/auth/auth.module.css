@@ -1,0 +1,238 @@
+/*
+ * Signed-out screens: the wordmark over one sheet of paper, on the desk.
+ * The column hangs from a fixed point a little above centre instead of being centred, so the
+ * wordmark stays put while screens of different heights swap beneath it and while the iOS
+ * keyboard opens. It is padded for the keyboard (--keyboard-inset), so the last button can
+ * always be scrolled into view above it.
+ */
+
+.screen {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Screens slide sideways as they swap; keep that travel from widening the page on phones. */
+  overflow-x: clip;
+  padding: calc(var(--safe-top) + clamp(var(--space-4), 8vh, var(--space-8))) max(var(--page-gutter), var(--safe-right))
+    calc(var(--safe-bottom) + var(--space-6) + var(--keyboard-inset)) max(var(--page-gutter), var(--safe-left));
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+
+.outlet {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 600px) {
+  .screen {
+    padding-top: calc(var(--safe-top) + clamp(var(--space-6), 12vh, var(--space-10) + var(--space-5)));
+    padding-bottom: calc(var(--safe-bottom) + var(--space-10) + var(--keyboard-inset));
+  }
+
+  .brand {
+    margin-bottom: var(--space-5);
+  }
+}
+
+/* ---- Panel ---- */
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+}
+
+.art {
+  display: flex;
+  margin-bottom: var(--space-2);
+  color: var(--color-red);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-variation-settings: 'opsz' 72;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-ink-2);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.footer {
+  margin-top: var(--space-3);
+  padding: 0 var(--space-2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+/* ---- Forms ---- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form .actions,
+.form > button[type='submit'] {
+  margin-top: var(--space-1);
+}
+
+/*
+ * "Forgot password?" beside the label: small text with a full 44px hit area. The field below
+ * sits on top of anything reaching into it, so the area stops short of it and grows upwards.
+ */
+.asideLink {
+  position: relative;
+  border-radius: var(--radius-xs);
+  color: var(--color-ink-2);
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.asideLink::after {
+  content: '';
+  position: absolute;
+  right: calc(var(--space-1) * -1);
+  bottom: calc(var(--space-1) * -1);
+  left: calc(var(--space-1) * -1);
+  height: var(--tap-min);
+}
+
+@media (hover: hover) {
+  .asideLink:hover {
+    color: var(--color-ink);
+  }
+}
+
+/* An inline text button ("Sign out") with a 44px hit area. */
+.textButton {
+  position: relative;
+  border-radius: var(--radius-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-2);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.textButton::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-1) * -1.5) calc(var(--space-1) * -1);
+}
+
+.textButton:disabled {
+  opacity: 0.6;
+}
+
+@media (hover: hover) {
+  .textButton:hover {
+    color: var(--color-ink);
+  }
+}
+
+.inlineIcon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.hintOk {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-half);
+  color: var(--color-ink);
+}
+
+.sentTo {
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.sentTo strong {
+  font-weight: var(--weight-medium);
+  overflow-wrap: anywhere;
+  color: var(--color-ink-2);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  font-size: var(--text-md);
+  color: var(--color-ink-2);
+}
+
+/* ---- Notices: a ruled note, like a comment in the margin ---- */
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-2);
+  border-left: 2px solid var(--color-red);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  background-color: var(--color-paper-sunken);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--color-ink);
+}
+
+.noticeInfo {
+  border-left-color: var(--color-rule-strong);
+  color: var(--color-ink-2);
+}
+
+.noticeIcon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: var(--space-half);
+}
+
+.noticeError .noticeIcon {
+  color: var(--color-red);
+}
+
+.noticeText {
+  flex: 1;
+  min-width: 0;
+  padding-block: var(--space-half);
+}
+
+.noticeDismiss {
+  margin: calc(var(--space-1) * -1) calc(var(--space-1) * -1) calc(var(--space-1) * -1) 0;
+}

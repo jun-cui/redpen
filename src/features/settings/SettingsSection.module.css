@@ -1,0 +1,255 @@
+/* ---- Section: heading above the sheet when narrow, beside it when wide ----
+ * Layout follows the space actually available (container queries), not the window: on a
+ * 1024px window the desktop sidebar leaves the page only about 700px. The page's list of
+ * sections is the `settings` container (Settings.module.css); each sheet is `settings-sheet`. */
+
+.section {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+}
+
+.title {
+  font-size: var(--text-xl);
+  font-variation-settings: 'opsz' 48;
+}
+
+.description {
+  max-width: 40ch;
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--color-ink-2);
+}
+
+.sheet {
+  container: settings-sheet / inline-size;
+  min-width: 0;
+}
+
+@container settings (min-width: 880px) {
+  .section {
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-5);
+  }
+
+  .intro {
+    padding-top: var(--space-3);
+  }
+}
+
+/* ---- Rows and blocks inside the sheet, separated by hairlines ---- */
+
+.item {
+  padding: var(--space-2);
+}
+
+.item + .item {
+  border-top: 1px solid var(--color-rule);
+}
+
+@container settings-sheet (min-width: 480px) {
+  .item {
+    padding: var(--space-3);
+  }
+}
+
+/* A setting: [icon] [text] with the control under the text on a narrow sheet;
+   [icon] [text] [control] once the sheet has room (480px, or 600px for a wide control). */
+.setting {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'icon text'
+    '. control';
+  align-items: start;
+  column-gap: var(--space-2);
+  row-gap: var(--space-2);
+  min-height: calc(var(--tap-min) + var(--space-2));
+}
+
+.noIcon {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'text'
+    'control';
+}
+
+/* No control: one row, so no empty second track (and its gap) below the text. */
+.noControl {
+  grid-template-areas: 'icon text';
+}
+
+.noControl.noIcon {
+  grid-template-areas: 'text';
+}
+
+/* Beside the text. (The two queries carry the same rules: one for ordinary controls, one for
+   wide ones, which need more room before they fit.) */
+@container settings-sheet (min-width: 480px) {
+  .setting:not(.wideControl) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: 'icon text control';
+    align-items: center;
+  }
+
+  .setting.noIcon:not(.wideControl) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'text control';
+  }
+
+  .setting:not(.wideControl) > .control {
+    margin-left: var(--space-2);
+  }
+
+  .setting:not(.wideControl) > .icon {
+    align-self: start;
+  }
+}
+
+@container settings-sheet (min-width: 600px) {
+  .setting.wideControl {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: 'icon text control';
+    align-items: center;
+  }
+
+  .setting.noIcon.wideControl {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'text control';
+  }
+
+  .setting.wideControl > .control {
+    margin-left: var(--space-2);
+  }
+
+  .setting.wideControl > .icon {
+    align-self: start;
+  }
+}
+
+/* Rows that are links lay out in a single line. */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: calc(var(--tap-min) + var(--space-2));
+}
+
+.lead {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.icon {
+  grid-area: icon;
+  display: inline-flex;
+  flex-shrink: 0;
+  padding-top: var(--space-half);
+  color: var(--color-ink-2);
+}
+
+.icon > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.text {
+  grid-area: text;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  letter-spacing: normal;
+  line-height: var(--leading-snug);
+  color: var(--color-ink);
+}
+
+.rowDescription {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-2);
+  overflow-wrap: anywhere;
+}
+
+.control {
+  grid-area: control;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+/* Under the text, a wide control (a segmented control) takes the row's full width. */
+@container settings-sheet (max-width: 599.98px) {
+  .wideControl > .control {
+    grid-column: 1 / -1;
+  }
+
+  .wideControl > .control > * {
+    flex: 1;
+  }
+}
+
+/* ---- A row that is a link ---- */
+
+.linkRow {
+  flex-wrap: nowrap;
+  border-radius: var(--radius-sheet);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .linkRow:hover {
+    background-color: var(--color-ink-wash);
+  }
+
+  .linkRow:hover .chevron {
+    color: var(--color-ink);
+    transform: translateX(calc(var(--space-half) / 2));
+  }
+}
+
+.linkRow:active {
+  background-color: var(--color-ink-wash-strong);
+  transition-duration: var(--duration-instant);
+}
+
+.linkRow:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.chevron {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-ink-3);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-spring) var(--ease-spring);
+}
+
+/* ---- Free-form blocks ---- */
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

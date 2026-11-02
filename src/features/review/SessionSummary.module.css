@@ -1,0 +1,233 @@
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-bottom: calc(var(--space-6) + var(--safe-bottom));
+}
+
+/* ---- Headline ---- */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding-top: var(--space-2);
+  text-align: center;
+}
+
+.mark {
+  margin-bottom: var(--space-1);
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-regular);
+  font-variation-settings: 'opsz' 96;
+}
+
+/* Takes focus only so screen readers announce the end of the session; no ring for that. */
+.title:focus,
+.title:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.lead {
+  max-width: 40ch;
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-ink-2);
+}
+
+/* ---- Stats ---- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+/* ---- Actions ---- */
+
+.next {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Cards from this session that come back soon: a quiet note, not a to-do. */
+.comeBack {
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  text-align: center;
+  text-wrap: balance;
+  color: var(--color-ink-2);
+}
+
+.actions > * {
+  width: 100%;
+}
+
+.actions > div > button {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .title {
+    font-size: var(--text-4xl);
+  }
+
+  .stats {
+    gap: var(--space-3);
+  }
+
+  .actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .actions > * {
+    width: auto;
+  }
+}
+
+/* ---- The session's cards ---- */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.listTitle {
+  font-size: var(--text-xl);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-sheet);
+  background-color: var(--color-paper-raised);
+  background-image: var(--texture-grain);
+  box-shadow: var(--sheet-edge), var(--shadow-sheet);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: var(--space-10) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-1) var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) 0;
+}
+
+.row + .row {
+  border-top: 1px solid var(--color-rule);
+}
+
+.score {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-half);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.question {
+  display: -webkit-box;
+  overflow: hidden;
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-variation-settings: 'opsz' 24;
+  line-height: var(--leading-snug);
+  color: var(--color-ink);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* Badge, next review and notes, separated by middle dots that drop away at the start of a
+   wrapped line: each item carries its dot in its left margin, and the line start is clipped. */
+.meta {
+  overflow: hidden;
+}
+
+.metaItems {
+  --meta-sep: var(--space-3);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: var(--space-half);
+  margin-left: calc(var(--meta-sep) * -1);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--color-ink-2);
+}
+
+.metaBadge {
+  margin-left: var(--meta-sep);
+  margin-right: calc(var(--space-1) - var(--meta-sep));
+}
+
+.metaItem {
+  position: relative;
+  margin-left: var(--meta-sep);
+}
+
+.metaItem::before {
+  content: '·';
+  position: absolute;
+  top: 0;
+  left: calc(var(--meta-sep) * -1);
+  width: var(--meta-sep);
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+/* Straight after the badge: no dot, just a small gap. */
+.metaBadge + .metaItem::before {
+  content: none;
+}
+
+.quiet {
+  color: var(--color-ink-3);
+}
+
+.change {
+  grid-column: 2;
+  justify-self: start;
+  margin-left: calc(var(--space-1) * -1);
+  margin-top: calc(var(--space-1) * -1);
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 600px) {
+  .row {
+    grid-template-columns: var(--space-10) minmax(0, 1fr) auto;
+    align-items: center;
+    padding-right: var(--space-3);
+  }
+
+  .score {
+    padding-top: 0;
+  }
+
+  .change {
+    grid-column: auto;
+    margin: 0;
+  }
+}

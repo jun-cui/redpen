@@ -1,0 +1,60 @@
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.tally {
+  align-self: flex-end;
+}
+
+.columns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.answer {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(var(--sheet-line) * 5 + var(--sheet-pad-y) * 2);
+}
+
+.label {
+  align-self: flex-end;
+  margin-top: var(--space-1);
+}
+
+/* The mark scheme only sits beside the answer on wide screens. */
+.cover {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .skeleton {
+    gap: var(--space-4);
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-4);
+  }
+
+  .answer {
+    min-height: calc(var(--sheet-line) * 7 + var(--sheet-pad-y) * 2);
+  }
+
+  .cover {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}

@@ -1,0 +1,36 @@
+/* Name, unit and buttons. Phone: name on its own line, unit and buttons below.
+   From 600px: one row, buttons lined up with the inputs (below the labels). */
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'name name'
+    'unit actions';
+  align-items: start;
+  gap: var(--space-2) var(--space-1);
+}
+
+.name {
+  grid-area: name;
+}
+
+.unit {
+  grid-area: unit;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: var(--space-half);
+  /* Line the buttons up with the inputs: skip the label row (14px text, normal leading) and the gap. */
+  margin-top: calc(var(--text-sm) * var(--leading-normal) + var(--space-1));
+  min-height: var(--control-height);
+}
+
+@media (min-width: 600px) {
+  .form {
+    grid-template-columns: minmax(0, 1fr) calc(var(--space-10) + var(--space-5)) auto;
+    grid-template-areas: 'name unit actions';
+  }
+}

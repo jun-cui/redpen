@@ -1,0 +1,105 @@
+/* The element is always a 44px hit area; the visible disc is drawn by ::before so small
+   buttons stay easy to tap. */
+.iconButton {
+  position: relative;
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink-2);
+  cursor: pointer;
+  transition:
+    transform var(--duration-spring) var(--ease-spring),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.iconButton::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.sm::before {
+  inset: 6px;
+}
+
+.iconButton > svg {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.sm > svg {
+  width: 18px;
+  height: 18px;
+}
+
+.ghost:hover {
+  color: var(--color-ink);
+}
+
+.secondary {
+  color: var(--color-ink);
+}
+
+.secondary::before {
+  border-color: var(--color-control-border);
+  background-color: var(--color-paper-raised);
+}
+
+.primary {
+  color: var(--color-on-red);
+}
+
+.primary::before {
+  background-color: var(--color-red-fill);
+  box-shadow: var(--shadow-xs);
+}
+
+.selected {
+  color: var(--color-ink);
+}
+
+.selected::before {
+  background-color: var(--color-ink-wash-strong);
+}
+
+@media (hover: hover) {
+  .ghost:hover::before,
+  .secondary:hover::before {
+    background-color: var(--color-ink-wash);
+  }
+
+  .primary:hover::before {
+    background-color: var(--color-red-fill-hover);
+  }
+}
+
+.iconButton:active:not(:disabled) {
+  transform: scale(0.92);
+  transition-duration: var(--duration-instant);
+}
+
+.ghost:active:not(:disabled)::before {
+  background-color: var(--color-ink-wash-strong);
+}
+
+.iconButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.iconButton:focus-visible {
+  box-shadow: none;
+}
+
+.iconButton:focus-visible::before {
+  box-shadow: var(--focus-ring);
+}

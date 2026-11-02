@@ -1,0 +1,100 @@
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Subject and topic, with the marks available at the right: "(3)". */
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.eyebrow {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* Clips the separator of an item that wraps to the start of a new line. */
+  overflow: hidden;
+}
+
+/* Subject and topic, separated by a middle dot that is dropped when the topic wraps onto its
+   own line: each item carries the dot in its left margin, and the line start is clipped. */
+.eyebrowItems {
+  --eyebrow-sep: var(--space-3);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: var(--space-half);
+  min-height: var(--space-3);
+  margin-left: calc(var(--eyebrow-sep) * -1);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.eyebrowItem {
+  margin-left: var(--eyebrow-sep);
+}
+
+.topic {
+  position: relative;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.topic::before {
+  content: '·';
+  position: absolute;
+  top: 0;
+  left: calc(var(--eyebrow-sep) * -1);
+  width: var(--eyebrow-sep);
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+.body {
+  position: relative;
+}
+
+/* The question number sits in the margin column, level with the first line. */
+.number {
+  position: absolute;
+  top: 0;
+  left: calc((var(--sheet-margin) + var(--space-2)) * -1);
+  width: var(--sheet-margin);
+  font-family: var(--font-serif);
+  font-size: var(--text-question);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: var(--leading-snug);
+  text-align: center;
+  color: var(--color-ink);
+}
+
+.question {
+  font-family: var(--font-serif);
+  font-size: var(--text-question);
+  font-weight: var(--weight-regular);
+  font-variation-settings: 'opsz' 36;
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: pretty;
+  white-space: pre-line;
+}
+
+/* Takes focus only so screen readers announce a new question; no ring for that. */
+.question:focus,
+.question:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.tally {
+  flex-shrink: 0;
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--color-ink-2);
+}

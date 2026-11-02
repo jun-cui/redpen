@@ -1,0 +1,8 @@
+/* Focus mode (/review). Cards slide in and out sideways; clip that travel so phones don't zoom
+   out to fit it and iOS can't pan the page sideways. clip (not hidden) leaves position: sticky
+   working inside the page. */
+.focus {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
+}

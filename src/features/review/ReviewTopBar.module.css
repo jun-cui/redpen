@@ -1,0 +1,135 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--tap-min);
+  margin-bottom: var(--space-3);
+}
+
+.close {
+  flex-shrink: 0;
+  margin-left: calc(var(--space-1) * -1);
+  color: var(--color-ink-2);
+}
+
+.meter {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.labels {
+  container-type: inline-size;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+/* The title, or for a few seconds after a save, the way to change those marks. */
+.slot {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.title {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-ink-3);
+}
+
+.saved {
+  display: flex;
+  min-width: 0;
+}
+
+.savedLine {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  white-space: nowrap;
+  color: var(--color-ink-2);
+}
+
+.savedShort {
+  display: none;
+}
+
+/* Too narrow for the whole line beside the count (phones under 375px): "Saved · Change marks". */
+@container (max-width: 18.5rem) {
+  .savedLong {
+    display: none;
+  }
+
+  .savedShort {
+    display: inline;
+  }
+}
+
+.dot {
+  color: var(--color-ink-3);
+}
+
+.change {
+  position: relative;
+  /* Above the progress bar, which its hit area overlaps. */
+  z-index: 1;
+  border-radius: var(--radius-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+/* A 44px tall target over a line of small text. */
+.change::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: calc(var(--space-half) * -1);
+  left: calc(var(--space-half) * -1);
+  height: var(--tap-min);
+  transform: translateY(-50%);
+}
+
+@media (hover: hover) {
+  .change:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+.count {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+}
+
+.of {
+  font-weight: var(--weight-regular);
+  color: var(--color-ink-3);
+}
+
+.progress {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .bar {
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+}

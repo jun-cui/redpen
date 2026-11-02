@@ -1,0 +1,242 @@
+/*
+ * Redpen base: reset, element defaults and a few utilities.
+ * Load after tokens.css. Component styles live next to components as CSS Modules.
+ */
+
+:root {
+  /* Paper grain: warm-grey fractal noise, rasterised once by the browser and tiled.
+     Mid-grey specks darken light paper and lighten dark paper, so one texture serves both themes. */
+  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.45 0 0 0 0 0.4 0 0 0 1.4 -0.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.2'/%3E%3C/svg%3E");
+  /* Light specks show more on dark paper, so the night desk gets a fainter grain. */
+  --texture-grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.45 0 0 0 0 0.4 0 0 0 1.4 -0.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.11'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --texture-grain: var(--texture-grain-dark);
+  }
+}
+
+:root[data-theme='dark'] {
+  --texture-grain: var(--texture-grain-dark);
+}
+
+/* ---- Reset ---- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 100%;
+  line-height: var(--leading-normal);
+  font-optical-sizing: auto;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  hanging-punctuation: first last;
+  scrollbar-color: var(--color-rule-strong) transparent;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-paper);
+  background-image: var(--texture-grain);
+  /* Standalone app feel: no rubber-band reveal of the page behind the app. */
+  overscroll-behavior-y: none;
+}
+
+#root {
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+img,
+picture,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+svg {
+  flex-shrink: 0;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+:where(button) {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+}
+
+:where(button:disabled, [aria-disabled='true']) {
+  cursor: not-allowed;
+}
+
+:where(a, button, input, select, textarea, label, summary, [role='button'], [role='switch'], [role='radio']) {
+  touch-action: manipulation;
+}
+
+:where(ul, ol)[role='list'] {
+  padding: 0;
+  list-style: none;
+}
+
+:where(p, li, h1, h2, h3, h4, h5, h6, figcaption, blockquote, dd) {
+  overflow-wrap: break-word;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---- Typography ---- */
+
+:where(p) {
+  text-wrap: pretty;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+/* Display sizes carry their own presence; a lighter weight keeps them calm. */
+:where(h1, h2) {
+  font-weight: var(--weight-medium);
+}
+
+:where(a) {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  :where(a):hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+:where(strong, b) {
+  font-weight: var(--weight-semibold);
+}
+
+:where(code, kbd, samp) {
+  font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+:where(hr) {
+  height: 1px;
+  border: 0;
+  background: var(--color-rule);
+}
+
+::placeholder {
+  color: var(--color-ink-3);
+  opacity: 1;
+}
+
+::selection {
+  background-color: var(--color-red-tint-strong);
+  color: inherit;
+}
+
+/* ---- Focus ----
+ * One ring everywhere. It is a box-shadow so it follows border radii; components that set their
+ * own box-shadow must repeat var(--focus-ring) in their :focus-visible rule. The transparent
+ * outline becomes visible in Windows forced-colours mode, where shadows are dropped. */
+
+:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+/* ---- Utilities ---- */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Examiner handwriting: red Caveat, sized to read like body text. */
+.hand {
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  color: var(--color-red);
+}
+
+/* ---- Theme switching ----
+ * theme.ts sets this attribute for one frame while the theme changes, so hundreds of colour
+ * transitions don't all run at once. */
+
+[data-theme-switching] *,
+[data-theme-switching] *::before,
+[data-theme-switching] *::after {
+  transition: none !important;
+}
+
+/* ---- Reduced motion ----
+ * Motion (JS) animations are handled by <MotionConfig reducedMotion="user"> and the pen
+ * components. Here CSS transitions and keyframes become effectively instant. Elements that must
+ * keep a gentle animation (a spinner) opt out with data-motion-safe. */
+
+@media (prefers-reduced-motion: reduce) {
+  *:not([data-motion-safe]),
+  *:not([data-motion-safe])::before,
+  *:not([data-motion-safe])::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
