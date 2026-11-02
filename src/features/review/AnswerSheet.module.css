@@ -1,0 +1,110 @@
+/*
+ * Every line of text on the sheet keeps to the rules (line-height var(--sheet-line)), and the
+ * writing box and the marked answer share the same metrics, so marking never moves the text.
+ * Four empty lines on every screen: the box grows with the answer, and on a laptop the Mark
+ * button has to fit under it.
+ */
+.sheet {
+  --answer-min-lines: 4;
+}
+
+.writing {
+  cursor: text;
+}
+
+/* Writing: the sheet lifts towards you and takes a firm edge (the caret marks the spot). The
+   lift is its own layer, so only its opacity animates. */
+.writing::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    0 0 0 1px var(--color-control-border),
+    var(--shadow-lifted);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.writing:focus-within::after {
+  opacity: 1;
+}
+
+@media (forced-colors: active) {
+  .writing:focus-within {
+    outline: 2px solid CanvasText;
+  }
+}
+
+/* The top ruled line: the heading, and the circled score in the margin once marked. */
+.head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: var(--sheet-line);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  line-height: var(--sheet-line);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+/* Centred on the red margin rule, as an examiner circles the total beside the answer. */
+.score {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--space-2) * -1);
+  display: flex;
+  transform: translate(-50%, -50%);
+}
+
+.input,
+.text {
+  display: block;
+  width: 100%;
+  min-height: calc(var(--sheet-line) * var(--answer-min-lines));
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-answer);
+  line-height: var(--sheet-line);
+  color: var(--color-ink);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.input {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: hidden;
+  resize: none;
+  appearance: none;
+}
+
+.input:focus,
+.input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.input::placeholder {
+  color: var(--color-ink-3);
+}
+
+.input:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.empty {
+  font-style: italic;
+  color: var(--color-ink-3);
+}

@@ -1,0 +1,264 @@
+/*
+ * Redpen design tokens.
+ * Concept: an examiner's red pen on good paper.
+ * Red is the only strong accent. It means marking, the brand, or the primary action.
+ *
+ * Themes: light ("paper") is the default; dark ("desk at night") follows the system
+ * unless the user picks one, which sets data-theme="light" | "dark" on <html>.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Colour: surfaces ---- */
+  --color-paper: #f6f3ee;          /* app background: warm off-white, not yellow */
+  --color-paper-raised: #fdfbf7;   /* sheets, cards, dialogs */
+  --color-paper-sunken: #efebe4;   /* wells, input fills, skeletons */
+  --color-paper-overlay: rgb(28 27 24 / 0.32); /* scrim behind dialogs */
+
+  /* ---- Colour: ink (text) ---- */
+  --color-ink: #1c1b18;            /* primary text */
+  --color-ink-2: #514c44;          /* secondary text */
+  --color-ink-3: #6e685e;          /* tertiary text, placeholders (AA on all paper tones) */
+  --color-ink-inverse: #fdfbf7;
+
+  /* ---- Colour: lines ---- */
+  --color-rule: #e3ddd2;           /* hairlines, dividers (decorative) */
+  --color-rule-strong: #d3ccbf;    /* ruled lines on answer sheets */
+  --color-control-border: #8a8377; /* input/control outlines: 3:1 against every paper tone */
+  --color-margin-line: rgb(196 43 34 / 0.28); /* the red margin rule on exam paper */
+
+  /* ---- Colour: washes (translucent ink over any surface) ---- */
+  --color-ink-wash: rgb(28 27 24 / 0.05);        /* hover fill for ghost controls */
+  --color-ink-wash-strong: rgb(28 27 24 / 0.09); /* pressed fill */
+  --color-shimmer: rgb(255 255 255 / 0.55);      /* skeleton highlight */
+
+  /* ---- Colour: red pen ---- */
+  --color-red: #c42b22;            /* marks, brand, red text (AA on paper) */
+  --color-red-strong: #a9221b;     /* hover/pressed */
+  --color-red-fill: #c42b22;       /* primary button background */
+  --color-red-fill-hover: #ab241c;
+  --color-on-red: #fffaf6;         /* text on red fill */
+  --color-red-tint: rgb(196 43 34 / 0.08);  /* selected backgrounds */
+  --color-red-tint-strong: rgb(196 43 34 / 0.14);
+
+  /* ---- Colour: focus ---- */
+  --color-focus: #1c1b18;
+  --focus-ring: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-focus);
+
+  /* ---- Shadows: soft, minimal; sheets look like paper on a desk ---- */
+  --shadow-xs: 0 1px 1px rgb(60 45 30 / 0.05);
+  --shadow-sheet:
+    0 1px 1px rgb(60 45 30 / 0.04),
+    0 2px 6px rgb(60 45 30 / 0.05),
+    0 12px 28px -14px rgb(60 45 30 / 0.16);
+  --shadow-lifted:
+    0 1px 2px rgb(60 45 30 / 0.06),
+    0 8px 20px rgb(60 45 30 / 0.08),
+    0 24px 48px -20px rgb(60 45 30 / 0.22);
+  --shadow-inset: inset 0 1px 2px rgb(60 45 30 / 0.06);
+  /* Hairline that crisps a sheet's edge; layered under the sheet shadows. */
+  --sheet-edge: inset 0 0 0 1px rgb(60 45 30 / 0.05);
+
+  /* ---- Typography ---- */
+  --font-serif: 'Fraunces Variable', 'Literata Variable', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-hand: 'Caveat Variable', 'Bradley Hand', 'Segoe Print', cursive;
+
+  --text-xs: 0.75rem;     /* 12px: tiny labels only */
+  --text-sm: 0.875rem;    /* 14px: secondary UI */
+  --text-md: 1rem;        /* 16px: body UI, inputs (16px stops iOS zoom on focus) */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.375rem;    /* 22px */
+  --text-2xl: 1.75rem;    /* 28px */
+  --text-3xl: 2.25rem;    /* 36px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-question: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); /* 22-28px: card question */
+  --text-answer: 1.125rem;  /* the student's answer on the sheet */
+  --text-hand: 1.625rem;    /* Caveat runs small; 26px reads like 18px */
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --tracking-tight: -0.015em;
+  --tracking-caps: 0.06em;
+
+  /* ---- Spacing: 8px grid (4px half-step for tight icon gaps only) ---- */
+  --space-half: 4px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-10: 80px;
+
+  /* ---- Radii ---- */
+  --radius-xs: 4px;
+  --radius-sheet: 6px;    /* paper is crisp */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* ---- Layout ---- */
+  --tap-min: 44px;
+  --control-height: 48px;
+  --control-height-sm: 40px;
+  --content-max: 720px;    /* comfortable reading width */
+  --wide-max: 1120px;      /* desktop two-column pages */
+  --sidebar-width: 248px;
+  --tabbar-height: 64px;
+  --page-gutter: 16px;
+  --sheet-line: 32px;      /* ruled-line spacing; text on ruled sheets uses it as line-height */
+  --sheet-margin: 40px;    /* left margin column of an answer sheet (red rule sits on its edge) */
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  /* Set from JS while the on-screen keyboard is open (see useKeyboardInset). */
+  --keyboard-inset: 0px;
+
+  /* ---- Motion (CSS side; JS springs live in src/lib/motion.ts) ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-instant: 80ms;
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 360ms;
+  /* CSS stand-in for springs.ui (src/lib/motion.ts), for press and toggle transitions.
+     A slight-overshoot curve here; the @supports block below swaps in a sampled spring. */
+  --ease-spring: cubic-bezier(0.34, 1.32, 0.64, 1);
+  --duration-spring: 420ms;
+
+  /* ---- Layers ---- */
+  --z-sticky: 10;
+  --z-nav: 20;
+  --z-overlay: 40;
+  --z-toast: 50;
+}
+
+/* A damped spring (~4% overshoot) sampled into linear(): Safari 17.2+, Chrome 113+, Firefox 112+. */
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --ease-spring: linear(0, 0.046 4.5%, 0.156 9.1%, 0.296 13.6%, 0.443 18.2%, 0.583 22.7%,
+      0.705 27.3%, 0.806 31.8%, 0.886 36.4%, 0.945 40.9%, 0.987 45.5%, 1.014 50%, 1.03 54.5%,
+      1.037 59.1%, 1.038 63.6%, 1.036 68.2%, 1.031 72.7%, 1.026 77.3%, 1.02 81.8%, 1.015 86.4%,
+      1.01 90.9%, 1.007 95.5%, 1);
+  }
+}
+
+@media (min-width: 600px) {
+  :root {
+    --page-gutter: 24px;
+    --sheet-margin: 56px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: 40px;
+  }
+}
+
+/* ---- Dark theme: "desk at night" ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --color-paper: #1a1816;
+    --color-paper-raised: #24211e;
+    --color-paper-sunken: #151311;
+    --color-paper-overlay: rgb(0 0 0 / 0.55);
+
+    --color-ink: #eee8de;
+    --color-ink-2: #c2baae;
+    --color-ink-3: #9d958a;
+    --color-ink-inverse: #1a1816;
+
+    --color-rule: #34302b;
+    --color-rule-strong: #403b35;
+    --color-control-border: #7d756a;
+    --color-margin-line: rgb(242 106 95 / 0.3);
+
+    --color-ink-wash: rgb(238 232 222 / 0.06);
+    --color-ink-wash-strong: rgb(238 232 222 / 0.1);
+    --color-shimmer: rgb(255 248 235 / 0.05);
+
+    --color-red: #f26a5f;
+    --color-red-strong: #ff7468;
+    --color-red-fill: #c9372d;
+    --color-red-fill-hover: #bd342b;
+    --color-on-red: #fff7f2;
+    --color-red-tint: rgb(242 106 95 / 0.12);
+    --color-red-tint-strong: rgb(242 106 95 / 0.2);
+
+    --color-focus: #eee8de;
+
+    --shadow-xs: 0 1px 1px rgb(0 0 0 / 0.3);
+    --shadow-sheet:
+      0 0 0 1px rgb(255 248 235 / 0.04),
+      0 2px 6px rgb(0 0 0 / 0.3),
+      0 12px 28px -14px rgb(0 0 0 / 0.6);
+    --shadow-lifted:
+      0 0 0 1px rgb(255 248 235 / 0.06),
+      0 8px 20px rgb(0 0 0 / 0.35),
+      0 24px 48px -20px rgb(0 0 0 / 0.7);
+    --shadow-inset: inset 0 1px 2px rgb(0 0 0 / 0.35);
+    --sheet-edge: inset 0 1px 0 rgb(255 248 235 / 0.035);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-paper: #1a1816;
+  --color-paper-raised: #24211e;
+  --color-paper-sunken: #151311;
+  --color-paper-overlay: rgb(0 0 0 / 0.55);
+
+  --color-ink: #eee8de;
+  --color-ink-2: #c2baae;
+  --color-ink-3: #9d958a;
+  --color-ink-inverse: #1a1816;
+
+  --color-rule: #34302b;
+  --color-rule-strong: #403b35;
+  --color-control-border: #7d756a;
+  --color-margin-line: rgb(242 106 95 / 0.3);
+
+  --color-ink-wash: rgb(238 232 222 / 0.06);
+  --color-ink-wash-strong: rgb(238 232 222 / 0.1);
+  --color-shimmer: rgb(255 248 235 / 0.05);
+
+  --color-red: #f26a5f;
+  --color-red-strong: #ff7468;
+  --color-red-fill: #c9372d;
+  --color-red-fill-hover: #bd342b;
+  --color-on-red: #fff7f2;
+  --color-red-tint: rgb(242 106 95 / 0.12);
+  --color-red-tint-strong: rgb(242 106 95 / 0.2);
+
+  --color-focus: #eee8de;
+
+  --shadow-xs: 0 1px 1px rgb(0 0 0 / 0.3);
+  --shadow-sheet:
+    0 0 0 1px rgb(255 248 235 / 0.04),
+    0 2px 6px rgb(0 0 0 / 0.3),
+    0 12px 28px -14px rgb(0 0 0 / 0.6);
+  --shadow-lifted:
+    0 0 0 1px rgb(255 248 235 / 0.06),
+    0 8px 20px rgb(0 0 0 / 0.35),
+    0 24px 48px -20px rgb(0 0 0 / 0.7);
+  --shadow-inset: inset 0 1px 2px rgb(0 0 0 / 0.35);
+  --sheet-edge: inset 0 1px 0 rgb(255 248 235 / 0.035);
+}

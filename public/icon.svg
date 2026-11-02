@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!--
+    Redpen master icon: an examiner's red tick on paper. Source for `npm run icons`.
+    The short stroke is pressed (constant width, round caps); the long stroke is a flick that
+    tapers as the pen lifts. Keep the two colours literal: the dark splash screens are made by
+    swapping them (see pwa-assets.config.ts), and the tile must be flat so it blends into the
+    paper background of the maskable, Apple and splash images.
+  -->
+  <rect width="1024" height="1024" rx="232" fill="#f6f3ee"/>
+  <path fill="#c42b22" d="M498.6 729.1Q715.4 404.8 791 323.1A34 34 0 0 0 741 276.9Q471.2 568.4 405.4 666.9A56 56 0 0 0 498.6 729.1Z"/>
+  <path fill="none" stroke="#c42b22" stroke-width="112" stroke-linecap="round" d="M304 532Q371.3 621 452 698"/>
+</svg>

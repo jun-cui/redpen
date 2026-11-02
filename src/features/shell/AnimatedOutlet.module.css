@@ -1,0 +1,11 @@
+/* Receives focus after a route change so screen readers start reading the new page. It is a
+   container, not a control, so it shows no focus ring. */
+.frame {
+  outline: none;
+}
+
+.frame:focus,
+.frame:focus-visible {
+  outline: none;
+  box-shadow: none;
+}

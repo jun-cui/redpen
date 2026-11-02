@@ -1,0 +1,75 @@
+.skeleton {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-xs);
+  background-color: var(--color-paper-sunken);
+}
+
+/* A soft band of light sweeping across. Only its transform animates. */
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, transparent, var(--color-shimmer) 50%, transparent);
+  transform: translateX(-100%);
+  animation: shimmer 1.8s var(--ease-in-out) infinite;
+}
+
+@keyframes shimmer {
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    display: none;
+  }
+}
+
+.sm {
+  border-radius: var(--radius-sm);
+}
+
+.sheet {
+  border-radius: var(--radius-sheet);
+}
+
+.pill {
+  border-radius: var(--radius-pill);
+}
+
+/* ---- Text ---- */
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each bar is 0.75em tall with 0.375em above and below: one 1.5 line-height row. */
+.line {
+  height: 0.75em;
+  margin-block: 0.375em;
+}
+
+.size-sm {
+  font-size: var(--text-sm);
+}
+
+.size-md {
+  font-size: var(--text-md);
+}
+
+.size-lg {
+  font-size: var(--text-lg);
+}
+
+.size-question {
+  font-size: var(--text-question);
+}
+
+.size-title {
+  font-size: var(--text-2xl);
+}

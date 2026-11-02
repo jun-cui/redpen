@@ -1,0 +1,77 @@
+.missing {
+  margin-top: var(--space-2);
+}
+
+/* ---- Loading: the editor's layout in outline ---- */
+
+.skeleton {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.skeletonForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.skeletonField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.skeletonQuestion {
+  padding: var(--space-2);
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius-sm);
+}
+
+.skeletonPoint {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skeletonTags {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.skeletonSide {
+  min-width: 0;
+}
+
+.skeletonAside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skeletonFacts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+/* Matches the key points editor: accept and reject side by side only in a wide form. */
+.skeletonPoint {
+  container-type: inline-size;
+}
+
+@container (min-width: 520px) {
+  .skeletonTags {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .skeleton {
+    grid-template-columns: minmax(0, 1fr) calc(var(--space-10) * 5);
+    column-gap: var(--space-6);
+  }
+}

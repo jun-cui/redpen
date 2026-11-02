@@ -1,0 +1,73 @@
+.chip {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-1);
+  height: calc(var(--tap-min) - var(--space-1));
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-control-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-paper-raised);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-2);
+  white-space: nowrap;
+  transition:
+    transform var(--duration-spring) var(--ease-spring),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+/* Extends the 36px chip to a 44px tall hit area without changing its look. Measured from the
+   padding box, so it also has to clear the 1px border. */
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-half) * -1 - 1px) 0;
+}
+
+.chip > svg {
+  width: 16px;
+  height: 16px;
+  margin-left: calc(var(--space-half) * -1);
+}
+
+@media (hover: hover) {
+  .chip:hover {
+    border-color: var(--color-ink-3);
+    color: var(--color-ink);
+  }
+}
+
+.chip:active:not(:disabled) {
+  transform: scale(0.96);
+  transition-duration: var(--duration-instant);
+}
+
+.selected,
+.selected:hover {
+  border-color: var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-ink-inverse);
+}
+
+.count {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-3);
+}
+
+.selected .count {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.chip:focus-visible {
+  box-shadow: var(--focus-ring);
+}

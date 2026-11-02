@@ -1,0 +1,3 @@
+# Redpen is a private, invite-only app.
+User-agent: *
+Disallow: /

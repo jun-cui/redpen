@@ -1,0 +1,160 @@
+/* ---- Greeting ---- */
+
+/* Today's date, in the header's small capitals, a shade darker than a plain eyebrow. */
+.date {
+  color: var(--color-ink-2);
+}
+
+/* The greeting waits for the profile (to include the name) and then fades in, so it never
+   visibly changes from "Good evening" to "Good evening, Jun". */
+.greeting {
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.greetingReady {
+  opacity: 1;
+}
+
+/* ---- Layout ----
+ * Narrow: one column in reading order (hero, subjects, links, overview); the two wrappers
+ * dissolve with display: contents so `order` can interleave their children.
+ * Wide: the hero and links on the left, subjects and overview in a column beside them.
+ * "Wide" is the page's content width (a container), not the window's: a 1024px window with
+ * the sidebar leaves too little room for two columns. */
+
+.board {
+  container: home-board / inline-size;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.main,
+.side {
+  display: contents;
+}
+
+.hero {
+  order: 1;
+}
+
+.subjects {
+  order: 2;
+}
+
+.links {
+  order: 3;
+}
+
+.overview {
+  order: 4;
+}
+
+@container home-board (min-width: 820px) {
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+    align-items: start;
+    gap: var(--space-4);
+  }
+
+  .main,
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+}
+
+/* ---- Quick links ---- */
+
+/* Phones: the two links split the row between them. "Browse cards" needs a button about 150px
+   wide even with tight side padding, so the row is shared from 348px (a few pixels to spare) and
+   the narrowest phones stack the links. Labels are centred, so the tight padding doesn't show;
+   it only stops a label being cut short. */
+.links {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+}
+
+.link {
+  width: 100%;
+}
+
+.links .link {
+  padding-inline: var(--space-1);
+}
+
+@media (min-width: 348px) {
+  .links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 600px) {
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .link {
+    width: auto;
+  }
+
+  .links .link {
+    padding-inline: var(--space-3);
+  }
+}
+
+/* ---- Error ---- */
+
+.error {
+  max-width: calc(var(--content-max) + var(--space-10) * 2);
+}
+
+/* ---- Skeleton ---- */
+
+.statSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-half);
+}
+
+.buttonSkeleton,
+.linkSkeleton {
+  display: block;
+  width: 100%;
+}
+
+/* Matches the hero's own switch to a side-by-side count and button (DueHero.module.css). */
+@container home-hero (min-width: 440px) {
+  .buttonSkeleton {
+    width: calc(var(--space-10) * 2.5);
+  }
+}
+
+@media (min-width: 600px) {
+  .linkSkeleton {
+    width: calc(var(--space-10) + var(--space-8));
+  }
+}
+
+.sideSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+.sideSkeletonRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--space-4);
+}

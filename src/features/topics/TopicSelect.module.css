@@ -1,0 +1,39 @@
+.aside {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+/* A quiet text button in the label row, with a 44px hit area drawn by ::after. */
+.retry {
+  position: relative;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule-strong);
+  text-underline-offset: 0.2em;
+}
+
+.retry::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-1) * -1.5) calc(var(--space-1) * -1);
+}
+
+@media (hover: hover) {
+  .retry:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+.retry:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.retry:disabled {
+  color: var(--color-ink-3);
+  cursor: default;
+}

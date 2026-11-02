@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024">
+  <!-- Tab-sized variant of icon.svg: a larger, heavier tick so it stays legible at 16px. -->
+  <style>
+    .paper { fill: #f6f3ee; }
+    .pen { color: #c42b22; }
+    @media (prefers-color-scheme: dark) {
+      .paper { fill: #1a1816; }
+      .pen { color: #ef5a4f; }
+    }
+  </style>
+  <rect class="paper" fill="#f6f3ee" width="1024" height="1024" rx="200"/>
+  <g class="pen" color="#c42b22">
+    <path fill="currentColor" d="M500.9 814.5Q725.2 466.8 863.5 306.4A68 68 0 0 0 760.5 217.6Q483.6 538.8 363.1 725.5A82 82 0 0 0 500.9 814.5Z"/>
+    <path fill="none" stroke="currentColor" stroke-width="164" stroke-linecap="round" d="M236 548Q326.5 665.6 432 770"/>
+  </g>
+</svg>

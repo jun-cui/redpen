@@ -1,0 +1,109 @@
+.badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-half);
+  height: 24px;
+  padding: 0 var(--space-1);
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.badge > svg {
+  width: 12px;
+  height: 12px;
+}
+
+.neutral {
+  background-color: var(--color-paper-sunken);
+  color: var(--color-ink-2);
+}
+
+.outline {
+  border-color: var(--color-rule-strong);
+  color: var(--color-ink-2);
+}
+
+.ink {
+  background-color: var(--color-ink);
+  color: var(--color-ink-inverse);
+}
+
+.red {
+  border-color: currentColor;
+  color: var(--color-red);
+}
+
+/* ---- Card categories ----
+ * Told apart by ink tone, outline and a small glyph rather than new colours:
+ * New is a dashed outline with an empty ring, Learning a quiet fill with a half ring,
+ * Weak is marked in red like an examiner's note, Mastered is solid ink with a full ring. */
+
+.new {
+  border-style: dashed;
+  border-color: var(--color-control-border);
+  color: var(--color-ink-2);
+}
+
+.learning {
+  background-color: var(--color-paper-sunken);
+  color: var(--color-ink-2);
+}
+
+.weak {
+  border-color: currentColor;
+  color: var(--color-red);
+}
+
+.mastered {
+  background-color: var(--color-ink);
+  color: var(--color-ink-inverse);
+}
+
+.badge > .glyph {
+  width: 10px;
+  height: 10px;
+  overflow: visible;
+}
+
+/* ---- Subject ---- */
+
+.subject {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.code {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  min-width: 26px;
+  height: 22px;
+  padding: 0 var(--space-half);
+  border: 1px solid var(--color-control-border);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-serif);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  font-variation-settings: 'opsz' 9;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--color-ink);
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

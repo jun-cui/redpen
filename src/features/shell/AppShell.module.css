@@ -1,0 +1,68 @@
+.shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Room for the fixed tab bar, so the end of every page can scroll clear of it. */
+  padding-bottom: calc(var(--tabbar-height) + var(--safe-bottom));
+}
+
+/* While the offline strip is showing, it already covers the status-bar area. */
+.content[data-offline] .main {
+  --safe-top: 0px;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  outline: none;
+  /* Pages slide sideways as they come and go. Clip that travel, or phones briefly zoom out
+     to fit the overflow and iOS lets the page pan sideways. clip (not hidden) keeps
+     position: sticky working inside pages. */
+  overflow-x: clip;
+}
+
+.main:focus,
+.main:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+@media (min-width: 1024px) {
+  .content {
+    padding-bottom: 0;
+    margin-left: calc(var(--sidebar-width) + var(--safe-left));
+  }
+}
+
+/* ---- Skip link: hidden until focused from the keyboard ---- */
+
+.skipLink {
+  position: fixed;
+  top: calc(var(--safe-top) + var(--space-1));
+  left: calc(var(--safe-left) + var(--space-1));
+  z-index: var(--z-toast);
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-paper-raised);
+  box-shadow: var(--sheet-edge), var(--shadow-lifted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-4) - var(--safe-top)));
+}
+
+.skipLink:focus-visible {
+  transform: none;
+  box-shadow: var(--focus-ring), var(--shadow-lifted);
+}

@@ -1,0 +1,92 @@
+.title {
+  padding: var(--space-3) var(--space-3) var(--space-1);
+  font-size: var(--text-lg);
+  font-variation-settings: 'opsz' 36;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-1) var(--space-1);
+}
+
+/* Hairlines between rows, inset to line up with the text. */
+.item + .item {
+  position: relative;
+}
+
+.item + .item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: var(--space-2);
+  left: var(--space-2);
+  height: 1px;
+  background-color: var(--color-rule);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: calc(var(--tap-min) + var(--space-1));
+  padding: 0 var(--space-1) 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-spring) var(--ease-spring);
+}
+
+@media (hover: hover) {
+  .row:hover {
+    background-color: var(--color-ink-wash);
+  }
+
+  .row:hover .chevron {
+    color: var(--color-ink);
+    transform: translateX(calc(var(--space-half) / 2));
+  }
+}
+
+.row:active {
+  background-color: var(--color-ink-wash-strong);
+  transform: scale(0.99);
+  transition-duration: var(--duration-instant);
+}
+
+.row:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+/* Hide the hairline either side of a hovered or focused row. */
+.item:has(.row:hover, .row:focus-visible)::before,
+.item:has(.row:hover, .row:focus-visible) + .item::before {
+  opacity: 0;
+}
+
+.subject {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-md);
+  color: var(--color-ink);
+}
+
+.count {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-variation-settings: 'opsz' 36;
+  line-height: 1;
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  color: var(--color-ink-3);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-spring) var(--ease-spring);
+}

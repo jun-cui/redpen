@@ -1,0 +1,159 @@
+.viewport {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* A closing dialog lets clicks through to the page while it animates away. */
+.leaving {
+  pointer-events: none;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-paper-overlay);
+}
+
+/* Phones: a bottom sheet that clears the home indicator and rides above the keyboard. */
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100dvh - var(--safe-top) - var(--space-4) - var(--keyboard-inset));
+  margin-bottom: var(--keyboard-inset);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background-color: var(--color-paper-raised);
+  background-image: var(--texture-grain);
+  box-shadow: var(--sheet-edge), var(--shadow-lifted);
+  outline: none;
+}
+
+/* The panel takes focus on open so its title is announced; no ring for that. */
+.panel:focus-visible {
+  box-shadow: var(--sheet-edge), var(--shadow-lifted);
+}
+
+.handle {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  height: var(--space-3);
+  touch-action: none;
+  cursor: grab;
+}
+
+.handle::before {
+  content: '';
+  width: 36px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-rule-strong);
+}
+
+/* Title and close button share the first row; the description runs the full width below. On
+   phones a swipe down can start here as well as on the handle. */
+.header {
+  display: grid;
+  grid-template-areas:
+    'title close'
+    'description description';
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: var(--space-2);
+  row-gap: var(--space-1);
+  padding: 0 var(--space-3);
+  touch-action: none;
+}
+
+.title {
+  grid-area: title;
+  padding-top: var(--space-1);
+  font-size: var(--text-xl);
+}
+
+.description {
+  grid-area: description;
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-ink-2);
+}
+
+.close {
+  grid-area: close;
+  margin-top: calc(var(--space-half) * -1);
+  margin-right: calc(var(--space-1) * -1);
+}
+
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-2) var(--space-3) 0;
+}
+
+.body:empty {
+  display: none;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-3) calc(var(--space-3) + var(--safe-bottom));
+}
+
+.noFooter {
+  padding-bottom: calc(var(--space-3) + var(--safe-bottom));
+}
+
+/* Tablets and up: a centred sheet of paper. */
+@media (min-width: 600px) {
+  .viewport {
+    align-items: center;
+    padding: var(--space-4);
+  }
+
+  .panel {
+    width: min(100%, 480px);
+    max-height: calc(100dvh - var(--space-8));
+    margin-bottom: 0;
+    border-radius: var(--radius-sheet);
+  }
+
+  .wide {
+    width: min(100%, 640px);
+  }
+
+  .handle {
+    display: none;
+  }
+
+  .header {
+    padding: var(--space-4) var(--space-4) 0;
+    touch-action: auto;
+  }
+
+  .title {
+    padding-top: var(--space-half);
+  }
+
+  .body {
+    padding: var(--space-2) var(--space-4) 0;
+  }
+
+  .footer {
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: var(--space-4);
+  }
+
+  .noFooter {
+    padding-bottom: var(--space-4);
+  }
+}

@@ -1,0 +1,204 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+}
+
+.optional {
+  margin-left: var(--space-1);
+  font-weight: var(--weight-regular);
+  color: var(--color-ink-3);
+}
+
+.labelAside {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.hint,
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-half);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+.hint {
+  color: var(--color-ink-2);
+}
+
+.error {
+  color: var(--color-red);
+  animation: message-in var(--duration-base) var(--ease-out);
+}
+
+.error > svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* ---- Text controls ---- */
+
+.control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--control-height);
+  border: 1px solid var(--color-control-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-paper-raised);
+  box-shadow: var(--shadow-inset);
+  color: var(--color-ink);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .control:hover {
+    border-color: var(--color-ink-3);
+  }
+}
+
+.control:focus-within {
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 1px var(--color-focus);
+}
+
+.invalid,
+.invalid:hover {
+  border-color: var(--color-red);
+}
+
+.invalid:focus-within {
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 1px var(--color-red);
+}
+
+.disabled {
+  opacity: 0.55;
+}
+
+.input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: calc(var(--control-height) - 2px);
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  /* 16px or more stops iOS Safari zooming in on focus. */
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: inherit;
+}
+
+.input:focus,
+.input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.hasLeading .input {
+  padding-left: 0;
+}
+
+.hasTrailing .input {
+  padding-right: 0;
+}
+
+.leading {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 0 var(--space-1) 0 var(--space-2);
+  color: var(--color-ink-3);
+}
+
+.leading > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.trailing {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding-right: var(--space-half);
+}
+
+/* ---- Textarea ---- */
+
+.textarea {
+  min-height: calc(var(--control-height) * 2);
+  padding: var(--space-1) var(--space-2);
+  resize: vertical;
+  line-height: var(--leading-relaxed);
+}
+
+.autoGrow {
+  overflow-y: hidden;
+  resize: none;
+}
+
+.textareaControl {
+  align-items: stretch;
+}
+
+/* ---- Select ---- */
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: calc(var(--space-2) + 24px);
+  cursor: pointer;
+}
+
+.select:invalid,
+.placeholder {
+  color: var(--color-ink-3);
+}
+
+/* Options inherit the select's colour in some browsers; keep the list itself in ink. */
+.select option {
+  color: var(--color-ink);
+  background-color: var(--color-paper-raised);
+}
+
+.chevron {
+  position: absolute;
+  right: var(--space-2);
+  width: 20px;
+  height: 20px;
+  color: var(--color-ink-2);
+  pointer-events: none;
+}

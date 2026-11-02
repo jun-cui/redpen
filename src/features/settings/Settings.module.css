@@ -1,0 +1,125 @@
+/* ---- Page ---- */
+
+/* The `settings` container: sections put their heading beside the sheet once it is wide
+   enough (SettingsSection.module.css). */
+.sections {
+  container: settings / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: calc(var(--content-max) + var(--space-10) * 3);
+}
+
+@media (min-width: 1024px) {
+  .sections {
+    gap: var(--space-6);
+  }
+}
+
+/* ---- Appearance ---- */
+
+/* On the narrowest phones (320px) "System" doesn't fit beside its icon, so the words go alone. */
+@container settings-sheet (max-width: 339.98px) {
+  .themeSwitch svg {
+    display: none;
+  }
+}
+
+/* ---- Profile ---- */
+
+/* The name field with its Save button level with the input; the hint runs underneath both. */
+.nameForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  column-gap: var(--space-1);
+  row-gap: var(--space-1);
+}
+
+.nameField {
+  min-width: 0;
+}
+
+.nameSave {
+  min-width: calc(var(--space-10) + var(--space-1));
+}
+
+.hint {
+  grid-column: 1 / -1;
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--color-ink-2);
+}
+
+.strictness {
+  max-width: calc(var(--space-10) * 6);
+}
+
+.fieldSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* ---- Rows ---- */
+
+.rowButton {
+  white-space: nowrap;
+}
+
+/* A small icon inside running text, like the iOS Share symbol in an instruction. */
+.inlineIcon {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  margin-inline: 0.2em 0.1em;
+  vertical-align: -0.2em;
+  color: var(--color-ink);
+}
+
+/* ---- Password dialog ---- */
+
+.passwordForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.formError {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-red-tint);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--color-red);
+}
+
+.formError > svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+}
+
+/* ---- About ---- */
+
+.about {
+  gap: var(--space-1);
+}
+
+.aboutLead {
+  margin-top: var(--space-1);
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-variation-settings: 'opsz' 24;
+  line-height: var(--leading-snug);
+  color: var(--color-ink);
+}
+
+.aboutStage {
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
